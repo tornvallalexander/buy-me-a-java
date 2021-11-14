@@ -1,31 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project is set up to use TypeScript.
+
+There are two parts to this project, the backend and the frontend. Everything related to the backend you can find in the `backend` directory. The other is the Next.js frontend.
 
 ## Getting Started
 
-First, run the development server:
+First, make sure to have the right credentials set up.
+
+Start off by running the below to get all the dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+Also, make sure you have nodemon installed. If not, install it like this:
+```bash
+ yarn global add nodemon
+```
+
+Run the `backend` development server (the commands should be performed in different tabs in the terminal):
 
 ```bash
+# watches for changes and generates JS output from TS files in the dist folder
+npm run watch
+# runs the development with nodemon
 npm run dev
 # or
+yarn watch
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+With the right credentials set up this will start the backend development server at port :5000. You can edit this API interface in the backend/api folder.
 
 ## Deploy on Vercel
 
