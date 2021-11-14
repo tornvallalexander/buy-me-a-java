@@ -31,6 +31,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### WebStorm IDE ###
+# .idea dir
+.idea/
+
 ### NextJS ###
 # Next build dir
 .next/
