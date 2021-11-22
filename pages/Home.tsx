@@ -6,8 +6,6 @@ import "@vetixy/circular-std";
 import { PayPalButton } from "react-paypal-button-v2";
 
 const HomeScreen = () => {
-  //const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
-
   return (
     <Box
       display="flex"
@@ -66,7 +64,7 @@ const HomeScreen = () => {
       </Box>
       <Spacer height={1} />
 
-      <PayPalButton
+      {/* <PayPalButton
         amount="0.01"
         onSuccess={(details: any, data: any) => {
           console.log(details, data);
@@ -75,7 +73,7 @@ const HomeScreen = () => {
           clientId:
             "AXhg67os1Hi3QkcZED-_fcnVaR858kMaLOmA0DaGE6HP4mm0PBwRDhIv6Q65sJgg1mlrv_aDu3j8Mg9z",
         }}
-      />
+      />*/}
     </Box>
   );
 };
