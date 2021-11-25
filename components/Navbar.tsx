@@ -55,10 +55,23 @@ const Navbar = () => {
         </Box>
 
         <Box>
-          <Button backgroundColor="#f7bb83" marginRight={3}>
+          <Button
+            backgroundColor="#f7bb83"
+            marginRight={3}
+            onClick={() => {
+              window.location.href = "/Login";
+            }}
+          >
             Log in
           </Button>
-          <Button backgroundColor="#f7bb83">Sign up</Button>
+          <Button
+            backgroundColor="#f7bb83"
+            onClick={() => {
+              window.location.href = "/Signup";
+            }}
+          >
+            Sign up
+          </Button>
         </Box>
       </Box>
     </Box>

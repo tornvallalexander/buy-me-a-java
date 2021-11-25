@@ -1,9 +1,24 @@
 import { Box, Button, Img, Input, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Spacer from "../components/Spacer";
 import "@vetixy/circular-std";
+import axios from "axios";
 
 const SignupScreen = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const signUp = (email: string, password: string) => {
+    if (email && password) {
+      axios
+        .post("http://localhost:5000/api/v1/auth/signup", {
+          password: email,
+          email: email,
+        })
+        .then((res) => console.log(res.data));
+    }
+  };
+
   return (
     <Box
       display="flex"
@@ -69,6 +84,9 @@ const SignupScreen = () => {
           borderColor="gray"
           fontSize={23}
           fontFamily="CircularStd"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
         <Spacer height={0.5} />
 
@@ -81,6 +99,9 @@ const SignupScreen = () => {
           borderColor="gray"
           fontSize={23}
           fontFamily="CircularStd"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
         <Spacer height={1} />
 
@@ -92,6 +113,9 @@ const SignupScreen = () => {
           fontWeight="600"
           fontFamily="CircularStd"
           fontSize={23}
+          onClick={() => {
+            signUp(email, password);
+          }}
         >
           Sign up
         </Button>
