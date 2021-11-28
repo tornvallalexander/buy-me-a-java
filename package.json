@@ -16,13 +16,15 @@
     "@vetixy/circular-std": "^1.0.0",
     "axios": "^0.24.0",
     "express": "^4.17.1",
+    "formik": "^2.2.9",
     "framer-motion": "^4",
     "next": "12.0.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-paypal-button-v2": "^2.6.3",
-    "react-router-dom": "5.3.0"
+    "react-router-dom": "5.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "16.11.7",
