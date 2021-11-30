@@ -1,13 +1,13 @@
 import * as React from "react";
-import { chakra } from "@chakra-ui/react"
+import { Heading } from "@chakra-ui/react"
 import SignUpForm from "./SignUpForm";
 
 const SignUpModule = () => {
   return (
     <>
-      <chakra.h1>
+      <Heading as="h1" textAlign="center" mt="4rem" mb="2rem">
         Sign up for BuyMeAJava
-      </chakra.h1>
+      </Heading>
       <SignUpForm />
     </>
   )

@@ -8,17 +8,17 @@ const SignupSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Required'),
   password: Yup.string()
-    .required("Password required")
     .min(8, "Password is too short")
     .max(30, "Password is too long")
+    .required("Password required")
 });
 
-const SignUpForm = () => {
+const LoginForm = () => {
 
-  const handleRegister = (email: string, password: string) => {
+  const handleLogin = (email: string, password: string) => {
     if (email && password) {
       axios
-        .post("http://localhost:5000/api/v1/auth/signup", {
+        .post("http://localhost:5000/api/v1/auth/login", {
           password: email,
           email: email,
         })
@@ -65,7 +65,7 @@ const SignUpForm = () => {
                 isLoading={props.isSubmitting}
                 type='submit'
               >
-                Register
+                Login
               </Button>
             </Form>
           )}
@@ -75,4 +75,4 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm;
+export default LoginForm;

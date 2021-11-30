@@ -65,7 +65,7 @@ const Header = () => {
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
             {/*replace with image here*/}
-            <Heading as="h1" fontSize="xl" fontWeight="medium" ml="2">
+            <Heading as={Link} href={ROUTES.HOME} fontSize="xl" fontWeight="medium" ml="2">
               Buy me a JAVA
             </Heading>
           </Flex>
