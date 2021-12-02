@@ -8,11 +8,11 @@ import {
   HStack,
   IconButton,
   useDisclosure,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
-import Link from "next/link"
-import * as ROUTES from "../constants/routes"
-import { AiOutlineMenu } from "react-icons/ai"
+import Link from "next/link";
+import * as ROUTES from "../constants/routes";
+import { AiOutlineMenu } from "react-icons/ai";
 
 interface NavLinkProps {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ interface NavLinkItemProps {
   href: string;
   text: string;
   children?: React.ReactNode;
-  [rest:string]: any;
+  [rest: string]: any;
 }
 
 const NavLinkItem = ({ children, href, text, ...rest }: NavLinkItemProps) => {
@@ -34,18 +34,16 @@ const NavLinkItem = ({ children, href, text, ...rest }: NavLinkItemProps) => {
         {children}
       </NavLink>
     </Button>
-  )
-}
+  );
+};
 
 const NavLink = ({ children, href }: NavLinkProps) => {
   return (
     <Link href={href}>
-      <a>
-        {children}
-      </a>
+      <a>{children}</a>
     </Link>
-  )
-}
+  );
+};
 
 const Header = () => {
   const mobileNav = useDisclosure();
@@ -55,7 +53,7 @@ const Header = () => {
       <Heading
         bg="white"
         mt="1rem"
-        w={{ base: "full", md: "95vw"}}
+        w={{ base: "full", md: "95vw" }}
         px={{ base: 2, sm: 4 }}
         py={4}
         mx="auto"
@@ -65,7 +63,13 @@ const Header = () => {
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
             {/*replace with image here*/}
-            <Heading as={Link} href={ROUTES.HOME} fontSize="xl" fontWeight="medium" ml="2">
+            <Heading
+              as={Link}
+              href={ROUTES.HOME}
+              fontSize="xl"
+              fontWeight="medium"
+              ml="2"
+            >
               Buy me a JAVA
             </Heading>
           </Flex>
@@ -76,14 +80,8 @@ const Header = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <NavLinkItem
-                href={ROUTES.REGISTER}
-                text="Register"
-              />
-              <NavLinkItem
-                href={ROUTES.LOGIN}
-                text="Login"
-              />
+              <NavLinkItem href={ROUTES.REGISTER} text="Register" />
+              <NavLinkItem href={ROUTES.LOGIN} text="Login" />
             </HStack>
             <Button colorScheme="brand" size="sm">
               Get Started
@@ -124,11 +122,7 @@ const Header = () => {
                   text="Register"
                   width="full"
                 />
-                <NavLinkItem
-                  href={ROUTES.LOGIN}
-                  text="Login"
-                  width="full"
-                />
+                <NavLinkItem href={ROUTES.LOGIN} text="Login" width="full" />
               </VStack>
             </Box>
           </HStack>
@@ -136,6 +130,6 @@ const Header = () => {
       </Heading>
     </React.Fragment>
   );
-}
+};
 
 export default Header;

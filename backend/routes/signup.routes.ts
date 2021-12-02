@@ -1,18 +1,19 @@
 import * as express from "express";
-const SignupTemplate = require("../models/signup");
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
+//temporary
+const KEY = "BUY_ME_A_JAVA";
 
 router.route("/").post((req, res) => {
-  const password = req.body.password;
-  const email = req.body.email;
+  const { email, password, userName } = req.body;
 
-  const userInfo = new SignupTemplate({
-    email: email,
-    password: password,
+  res.json({
+    token: jwt.sign(
+      { username: userName, email: email, password: password },
+      KEY
+    ),
   });
-
-  userInfo.save().then((data: object) => res.json(data));
 });
 
 export default router;

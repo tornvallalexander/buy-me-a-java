@@ -2,22 +2,18 @@ import app from "./server";
 import * as mongodb from "mongodb";
 import * as dotenv from "dotenv";
 
-//temporary variables for server until err fixed
-const RESTREVIEWS_DB_URI = `mongodb+srv://tornvallalexander:HyF8U3sLABb$Ux!@cluster1.662tl.mongodb.net/sample_restaurants?retryWrites=true&w=majority`;
-const PORT = 5000;
-
 dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: "./.env.development",
 });
-console.log(PORT);
+
 const MongoClient = mongodb.MongoClient;
 
-/*if (!process.env.RESTREVIEWS_DB_URI) {
+if (!process.env.RESTREVIEWS_DB_URI) {
   console.log("Fatal: RESTREVIEWS_DB_URI not defined");
   process.exit(1);
-}*/
+}
 
-MongoClient.connect(RESTREVIEWS_DB_URI, {
+MongoClient.connect(process.env.RESTREVIEWS_DB_URI, {
   maxPoolSize: 50,
   writeConcern: {
     wtimeout: 2500,
@@ -27,8 +23,8 @@ MongoClient.connect(RESTREVIEWS_DB_URI, {
 } as mongodb.ConnectOptions)
 
   .then(async (_) => {
-    app.listen(PORT, () => {
-      console.log(`Listening on port ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Listening on port ${process.env.PORT}`);
     });
   })
 
