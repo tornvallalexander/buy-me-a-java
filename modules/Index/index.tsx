@@ -1,4 +1,4 @@
-import {NextPage} from "next";
+import { NextPage } from "next";
 import {
   Box,
   Button,
@@ -8,7 +8,7 @@ import {
   Icon,
   Input,
   SimpleGrid,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 import * as React from "react";
 
@@ -17,7 +17,6 @@ interface FeatureProps {
 }
 
 const IndexModule: NextPage = () => {
-
   const Feature = ({ children }: FeatureProps) => (
     <Flex alignItems="center" color="inherit">
       <Icon
@@ -59,8 +58,9 @@ const IndexModule: NextPage = () => {
           color="gray.500"
           lineHeight="base"
         >
-          We’re on a mission to bring transparency to donations. We make it easier than ever before for down right
-          awesome people like you (yes, you!) to accept donations.
+          We’re on a mission to bring transparency to donations. We make it
+          easier than ever before for down right awesome people like you (yes,
+          you!) to accept donations.
         </chakra.p>
         <SimpleGrid
           as="form"
@@ -79,6 +79,8 @@ const IndexModule: NextPage = () => {
               type="email"
               placeholder="Enter your email..."
               required
+              borderColor="gray"
+              border="2px solid"
             />
           </GridItem>
           <Button
