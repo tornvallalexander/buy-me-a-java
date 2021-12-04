@@ -107,7 +107,7 @@ const IndexModule: NextPage = () => {
         >
           <Feature>Free to use</Feature>
           <Feature>Easy set up</Feature>
-          <Feature>Accept donos like never before</Feature>
+          <Feature>Accept donations like never before</Feature>
         </Stack>
       </Box>
     </Box>

@@ -5,11 +5,16 @@ import {
   FormLabel,
   Input,
   Box,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { useState } from "react";
+import Spacer from "../../components/Spacer";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -20,6 +25,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUpForm = () => {
+  const [userType, setUserType] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -35,12 +41,13 @@ const SignUpForm = () => {
   };
 
   const handleRegister = () => {
-    if (email && password) {
+    if (email && password && userType && userName) {
       axios
         .post("http://localhost:5000/api/v1/user", {
           password: password,
           email: email,
-          username: username,
+          userName: userName,
+          userType: userType,
         })
         .then((res) => {
           console.log(res.data);
@@ -77,26 +84,6 @@ const SignUpForm = () => {
         >
           {(props: any) => (
             <Form>
-              <Field name="username">
-                {({ field, form }: any) => (
-                  <FormControl
-                    isInvalid={form.errors.username && form.touched.username}
-                  >
-                    <FormLabel htmlFor="username">Your user name</FormLabel>
-                    <Input
-                      {...field}
-                      id="username"
-                      placeholder="username"
-                      onChange={(e) => {
-                        setUsername(e.target.value);
-                      }}
-                      value={username}
-                    />
-                    <FormErrorMessage>{form.errors.username}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
               <Field name="email">
                 {({ field, form }: any) => (
                   <FormControl
@@ -116,6 +103,7 @@ const SignUpForm = () => {
                   </FormControl>
                 )}
               </Field>
+              <Spacer height={1} />
 
               <Field name="password">
                 {({ field, form }: any) => (
@@ -137,6 +125,52 @@ const SignUpForm = () => {
                   </FormControl>
                 )}
               </Field>
+              <Spacer height={2} />
+
+              <Field name="username">
+                {({ field, form }: any) => (
+                  <FormControl
+                    isInvalid={form.errors.username && form.touched.username}
+                  >
+                    <FormLabel htmlFor="username">Your user name</FormLabel>
+                    <Input
+                      {...field}
+                      id="username"
+                      placeholder="username"
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
+                      value={userName}
+                    />
+                    {/*<FormErrorMessage>{form.errors.username}</FormErrorMessage>*/}
+                  </FormControl>
+                )}
+              </Field>
+              <Spacer height={2} />
+
+              <Menu>
+                <MenuButton as={Button}>
+                  {userType ? userType : "Signup for ..."}
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      setUserType("creator");
+                    }}
+                  >
+                    Creator
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setUserType("supporter");
+                    }}
+                  >
+                    Supporter
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              <Spacer height={2.5} />
+
               <Button
                 mt={4}
                 colorScheme="blue"
