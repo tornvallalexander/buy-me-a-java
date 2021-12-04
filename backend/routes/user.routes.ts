@@ -30,7 +30,7 @@ router.route("/").post(async (req, res) => {
     res.status(201)
     res.send({ ...doc })
   }).catch((err) => {
-    console.log("New user could not be saved")
+    console.log(err.message)
     res.status(400)
     res.send(err.message)
   })
