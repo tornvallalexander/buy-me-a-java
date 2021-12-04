@@ -28,11 +28,11 @@ const SignUpForm = () => {
   const [userType, setUserType] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
 
   const SignUser = (token: string) => {
     axios
-      .post("http://localhost:5000/api/v1/auth/add", {
+      .post(`http://localhost:5000/api/v1/auth/add`, {
         token: token,
       })
       .then((res) => {
@@ -43,7 +43,7 @@ const SignUpForm = () => {
   const handleRegister = () => {
     if (email && password && userType && userName) {
       axios
-        .post("http://localhost:5000/api/v1/auth/signup", {
+        .post("http://localhost:5000/api/v1/user", {
           password: password,
           email: email,
           userName: userName,
@@ -52,8 +52,12 @@ const SignUpForm = () => {
         .then((res) => {
           console.log(res.data);
 
-          SignUser(res.data.token);
-        });
+          // SignUser(res.data.token);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
     }
   };
 
@@ -95,7 +99,7 @@ const SignUpForm = () => {
                       }}
                       value={email}
                     />
-                    {/*<FormErrorMessage>{form.errors.email}</FormErrorMessage>*/}
+                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -117,7 +121,7 @@ const SignUpForm = () => {
                       }}
                       value={password}
                     />
-                    {/*<FormErrorMessage>{form.errors.password}</FormErrorMessage>*/}
+                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
