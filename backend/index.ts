@@ -6,6 +6,8 @@ dotenv.config({
   path: "./.env.development",
 });
 
+const port = process.env.PORT || "8000"
+
 const MongoClient = mongodb.MongoClient;
 
 if (!process.env.RESTREVIEWS_DB_URI) {
@@ -23,8 +25,8 @@ MongoClient.connect(process.env.RESTREVIEWS_DB_URI, {
 } as mongodb.ConnectOptions)
 
   .then(async (_) => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Listening on port ${process.env.PORT}`);
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
     });
   })
 
