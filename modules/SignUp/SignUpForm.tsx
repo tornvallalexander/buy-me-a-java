@@ -41,12 +41,12 @@ const SignUpForm = () => {
   };
 
   const handleRegister = () => {
-    if (email && password && userType && userName) {
+    if (email && password && userType && username) {
       axios
         .post("http://localhost:5000/api/v1/user", {
           password: password,
           email: email,
-          userName: userName,
+          userName: username,
           userType: userType,
         })
         .then((res) => {
@@ -138,9 +138,9 @@ const SignUpForm = () => {
                       id="username"
                       placeholder="username"
                       onChange={(e) => {
-                        setUserName(e.target.value);
+                        setUsername(e.target.value);
                       }}
-                      value={userName}
+                      value={username}
                     />
                     {/*<FormErrorMessage>{form.errors.username}</FormErrorMessage>*/}
                   </FormControl>

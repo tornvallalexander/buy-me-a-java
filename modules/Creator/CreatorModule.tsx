@@ -1,11 +1,12 @@
-import CreatorLayout from "../../components/CreatorLayout";
+import * as React from "react";
 import ProfileScreen from "../ProfileScreen";
+import Layout from "../../components/Layout";
 
 const CreatorModule = () => {
   return (
-    <CreatorLayout>
+    <Layout>
       <ProfileScreen />
-    </CreatorLayout>
+    </Layout>
   );
 };
 

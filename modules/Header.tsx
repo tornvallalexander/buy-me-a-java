@@ -13,6 +13,8 @@ import {
 import Link from "next/link";
 import * as ROUTES from "../constants/routes";
 import { AiOutlineMenu } from "react-icons/ai";
+import Image from "next/image"
+import Logo from "../assets/logo.png"
 
 interface NavLinkProps {
   children: React.ReactNode;
@@ -61,18 +63,13 @@ const Header = () => {
         borderRadius="full"
       >
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Flex>
-            {/*replace with image here*/}
-            <Heading
-              as={Link}
-              href={ROUTES.HOME}
-              fontSize="xl"
-              fontWeight="medium"
-              ml="2"
-            >
-              Buy me a JAVA
-            </Heading>
-          </Flex>
+          <Box alignItems="center" ml={10}>
+            <Link href={ROUTES.HOME}>
+              <a>
+                <Image src={Logo} alt="Logo" width={42} height={42} />
+              </a>
+            </Link>
+          </Box>
           <HStack display="flex" alignItems="center" spacing={1}>
             <HStack
               spacing={1}

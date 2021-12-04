@@ -1,12 +1,12 @@
-import React from "react";
-import DonatorLayout from "../components/DonatorLayout";
+import * as React from "react";
 import DonationScreen from "../modules/Donnator/DonationScreen";
+import Layout from "../components/Layout";
 
 const DonatorCreators = () => {
   return (
-    <DonatorLayout>
+    <Layout>
       <DonationScreen />
-    </DonatorLayout>
+    </Layout>
   );
 };
 
