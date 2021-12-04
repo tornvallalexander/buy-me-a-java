@@ -10,7 +10,7 @@ router.route("/").post((req, res) => {
 
   res.json({
     token: jwt.sign(
-      { username: userName, email: email, password: password, type: userType },
+      { userName: userName, email: email, password: password, type: userType },
       KEY
     ),
   });

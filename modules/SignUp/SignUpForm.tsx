@@ -28,17 +28,7 @@ const SignUpForm = () => {
   const [userType, setUserType] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-
-  const SignUser = (token: string) => {
-    axios
-      .post(`http://localhost:5000/api/v1/auth/add`, {
-        token: token,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
+  const [userName, setUserName] = useState("");
 
   const handleRegister = () => {
     if (email && password && userType && username) {
@@ -55,9 +45,8 @@ const SignUpForm = () => {
           // SignUser(res.data.token);
         })
         .catch((err) => {
-          console.log(err)
-        })
-
+          console.log(err);
+        });
     }
   };
 
@@ -127,22 +116,22 @@ const SignUpForm = () => {
               </Field>
               <Spacer height={2} />
 
-              <Field name="username">
+              <Field name="userName">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.username && form.touched.username}
+                    isInvalid={form.errors.userName && form.touched.userName}
                   >
-                    <FormLabel htmlFor="username">Your user name</FormLabel>
+                    <FormLabel htmlFor="userName">Your user name</FormLabel>
                     <Input
                       {...field}
-                      id="username"
-                      placeholder="username"
+                      id="userName"
+                      placeholder="userName"
                       onChange={(e) => {
                         setUsername(e.target.value);
                       }}
                       value={username}
                     />
-                    {/*<FormErrorMessage>{form.errors.username}</FormErrorMessage>*/}
+                    {/*<FormErrorMessage>{form.errors.userName}</FormErrorMessage>*/}
                   </FormControl>
                 )}
               </Field>
