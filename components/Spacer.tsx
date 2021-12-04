@@ -6,7 +6,7 @@ interface spacerProps {
 }
 
 const Spacer: React.FC<spacerProps> = ({ height }) => {
-  return <Box height={height * 10} />;
+  return <Box height={`${height * 10}px`} />;
 };
 
 export default Spacer;

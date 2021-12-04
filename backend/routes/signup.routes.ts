@@ -6,11 +6,11 @@ const router = express.Router();
 const KEY = "BUY_ME_A_JAVA";
 
 router.route("/").post((req, res) => {
-  const { email, password, userName } = req.body;
+  const { email, password, userName, userType } = req.body;
 
   res.json({
     token: jwt.sign(
-      { username: userName, email: email, password: password },
+      { username: userName, email: email, password: password, type: userType },
       KEY
     ),
   });
