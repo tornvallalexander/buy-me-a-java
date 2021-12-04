@@ -37,6 +37,7 @@ const SupportersScreen = () => {
         {demoSupporters.map((supporter) => {
           return (
             <Box
+              key={supporter.name}
               display="flex"
               flexDirection="row"
               alignItems="center"

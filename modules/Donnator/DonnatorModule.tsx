@@ -1,12 +1,12 @@
-import { Box, Text } from "@chakra-ui/react";
+import * as React from "react"
 import ProfileScreen from "../ProfileScreen";
-import DonatorLayout from "../../components/DonatorLayout";
+import Layout from "../../components/Layout";
 
 const SupporterModule = () => {
   return (
-    <DonatorLayout>
+    <Layout>
       <ProfileScreen />
-    </DonatorLayout>
+    </Layout>
   );
 };
 

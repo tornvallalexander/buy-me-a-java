@@ -1,11 +1,12 @@
-import CreatorLayout from "../components/CreatorLayout";
+import * as React from "react";
 import SupportersScreen from "../modules/Creator/SupportersSceen";
+import Layout from "../components/Layout";
 
 const CreatorSupporters = () => {
   return (
-    <CreatorLayout>
+    <Layout>
       <SupportersScreen />
-    </CreatorLayout>
+    </Layout>
   );
 };
 
