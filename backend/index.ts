@@ -3,7 +3,7 @@ import * as mongodb from "mongodb";
 import * as dotenv from "dotenv";
 
 dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: "./.env.development",
 });
 
 const port = process.env.PORT || "8000"
