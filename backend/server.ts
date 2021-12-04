@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 
-import login from "./routes/login.routes";
 import signup from "./routes/login.routes";
 import connect from "./routes/connect.routes"
 import addUser from "./routes/addUser.routes";
