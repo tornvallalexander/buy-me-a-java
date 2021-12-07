@@ -3,7 +3,8 @@ import * as mongoose from "mongoose";
 export interface IUser extends mongoose.Document {
   email: string;
   password: string;
-  userName?: string;
+  userName: string;
+  userType: string;
 }
 
 const validateEmail = (email: string): boolean => {
@@ -21,7 +22,8 @@ export const UserSchema = new mongoose.Schema({
     validate: [validateEmail, "Fill out a valid email address"],
   },
   password: { type: String, min: 4, max: 200, required: true },
-  userName: { type: String, default: "" },
+  userName: { type: String, required: true },
+  userType: { type: String, required: true },
 });
 
 const User = mongoose.model<IUser>("User", UserSchema);

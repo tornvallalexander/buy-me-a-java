@@ -15,6 +15,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useState } from "react";
 import Spacer from "../../components/Spacer";
+import { setCookies } from "cookies-next";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -31,20 +32,22 @@ const SignUpForm = () => {
   const [userName, setUserName] = useState("");
 
   const handleRegister = () => {
-    if (email && password && userType && username) {
+    if (email && password && userType && userName) {
       axios
-        .post("http://localhost:5000/api/v1/user", {
+        .post("http://localhost:5000/api/v1/signup", {
           password: password,
           email: email,
-          userName: username,
+          userName: userName,
           userType: userType,
         })
         .then((res) => {
           console.log(res.data);
 
-          // SignUser(res.data.token);
+          setCookies("TOKEN", res.data.token);
+          window.location.href = "/";
         })
         .catch((err) => {
+          alert("error !!!");
           console.log(err);
         });
     }
@@ -127,9 +130,9 @@ const SignUpForm = () => {
                       id="userName"
                       placeholder="userName"
                       onChange={(e) => {
-                        setUsername(e.target.value);
+                        setUserName(e.target.value);
                       }}
-                      value={username}
+                      value={userName}
                     />
                     {/*<FormErrorMessage>{form.errors.userName}</FormErrorMessage>*/}
                   </FormControl>

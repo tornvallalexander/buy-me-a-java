@@ -4,7 +4,7 @@ import SignUpModule from "../modules/SignUp";
 
 const Register = () => {
   return (
-    <Layout>
+    <Layout userType="none">
       <SignUpModule />
     </Layout>
   );

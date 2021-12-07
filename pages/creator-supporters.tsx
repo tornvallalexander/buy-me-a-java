@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 
 const CreatorSupporters = () => {
   return (
-    <Layout>
+    <Layout userType="creator">
       <SupportersScreen />
     </Layout>
   );

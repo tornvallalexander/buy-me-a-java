@@ -2,16 +2,17 @@ import * as React from "react";
 import Header from "../modules/Header";
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
+  userType: string;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, userType }: LayoutProps) => {
   return (
     <>
-      <Header />
+      <Header type={userType} />
       {children}
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

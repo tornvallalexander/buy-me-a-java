@@ -5,12 +5,20 @@ import {
   Flex,
   useColorModeValue,
   useMediaQuery,
+  Button,
 } from "@chakra-ui/react";
+import { setCookies } from "cookies-next";
+import link from "next/link";
 import React from "react";
 import Spacer from "../components/Spacer";
 
 const ProfileScreen = () => {
   const [isMobile] = useMediaQuery("(max-width: 1000px)");
+
+  const logout = () => {
+    setCookies("TOKEN", "");
+    window.location.href = "/";
+  };
 
   return (
     <Box
@@ -88,6 +96,10 @@ const ProfileScreen = () => {
               </chakra.p>
             </Flex>
           </Box>
+          <Spacer height={1} />
+          <Button backgroundColor="#222" color="white" onClick={logout}>
+            Logout
+          </Button>
 
           <Spacer height={1} />
         </Box>
