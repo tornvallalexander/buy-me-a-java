@@ -13,8 +13,8 @@ import {
 import Link from "next/link";
 import * as ROUTES from "../constants/routes";
 import { AiOutlineMenu } from "react-icons/ai";
-import Image from "next/image"
-import Logo from "../assets/logo.png"
+import Image from "next/image";
+import Logo from "../assets/logo.png";
 
 interface NavLinkProps {
   children: React.ReactNode;
@@ -26,6 +26,10 @@ interface NavLinkItemProps {
   text: string;
   children?: React.ReactNode;
   [rest: string]: any;
+}
+
+interface HeaderProps {
+  type: string;
 }
 
 const NavLinkItem = ({ children, href, text, ...rest }: NavLinkItemProps) => {
@@ -47,8 +51,62 @@ const NavLink = ({ children, href }: NavLinkProps) => {
   );
 };
 
-const Header = () => {
+const Header: React.FC<HeaderProps> = ({ type }) => {
   const mobileNav = useDisclosure();
+
+  const displayNavItems = (isMobile: boolean) => {
+    switch (type) {
+      case "creator":
+        return (
+          <>
+            <NavLinkItem
+              href={ROUTES.CREATOR}
+              text="My Profile"
+              width={isMobile && "full"}
+            />
+            <NavLinkItem
+              href={ROUTES.CREATOR_SUPPORTERS}
+              text="Supporters"
+              width={isMobile && "full"}
+            />
+          </>
+        );
+        break;
+      case "donator":
+        return (
+          <>
+            <NavLinkItem
+              href={ROUTES.DONATOR}
+              text="My Profile"
+              width={isMobile && "full"}
+            />
+            <NavLinkItem
+              href={ROUTES.DONATOR_CREATORS}
+              text="Creators"
+              width={isMobile && "full"}
+            />
+          </>
+        );
+        break;
+      case "none":
+        return (
+          <>
+            <NavLinkItem
+              href={ROUTES.REGISTER}
+              text="Register"
+              width={isMobile && "full"}
+            />
+            <NavLinkItem
+              href={ROUTES.LOGIN}
+              text="Login"
+              width={isMobile && "full"}
+            />
+          </>
+        );
+        break;
+      default:
+    }
+  };
 
   return (
     <React.Fragment>
@@ -77,8 +135,7 @@ const Header = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <NavLinkItem href={ROUTES.REGISTER} text="Register" />
-              <NavLinkItem href={ROUTES.LOGIN} text="Login" />
+              {displayNavItems(false)}
             </HStack>
             <Button colorScheme="brand" size="sm">
               Get Started
@@ -114,12 +171,7 @@ const Header = () => {
                   onClick={mobileNav.onClose}
                 />
 
-                <NavLinkItem
-                  href={ROUTES.REGISTER}
-                  text="Register"
-                  width="full"
-                />
-                <NavLinkItem href={ROUTES.LOGIN} text="Login" width="full" />
+                {displayNavItems(true)}
               </VStack>
             </Box>
           </HStack>

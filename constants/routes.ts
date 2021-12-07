@@ -1,13 +1,27 @@
-export const HOME = "/";
+import { getCookie } from "cookies-next";
+import jwt from "jsonwebtoken";
+
+const userToken = getCookie("TOKEN");
+let userID: any;
+let USER = "/";
+
+if (userToken) {
+  console.log(jwt.decode(userToken.toString()));
+  userID = jwt.decode(userToken.toString());
+
+  USER = `/${userID.userType}`;
+}
+
+export const HOME = userToken ? USER : "/";
 
 //auth
-export const LOGIN = "/login";
-export const REGISTER = "/register";
+export const LOGIN = userToken ? USER : "/login";
+export const REGISTER = userToken ? USER : "/register";
 
 //creator screens
-export const CREATOR = "/creator";
+export const CREATOR = USER;
 export const CREATOR_SUPPORTERS = "/creator-supporters";
 
 //supporter screens
-export const DONATOR = "/donator";
+export const DONATOR = USER;
 export const DONATOR_CREATORS = "/donator-creators";

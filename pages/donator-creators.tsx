@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 
 const DonatorCreators = () => {
   return (
-    <Layout>
+    <Layout userType="donator">
       <DonationScreen />
     </Layout>
   );
