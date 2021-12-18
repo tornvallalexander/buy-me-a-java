@@ -23,20 +23,30 @@ const SignupSchema = Yup.object().shape({
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
+    setIsLoading(true);
     if (email && password) {
       axios
         .post("http://localhost:5000/api/v1/login", {
-          password: email,
+          password: password,
           email: email,
         })
         .then((res) => {
-          console.log(res.data);
+          if (res.data.token) {
+            setIsLoading(false);
+            console.log(res.data);
 
-          setCookies("TOKEN", res.data.token);
-          window.location.href = "/";
+            setCookies("TOKEN", res.data.token);
+            window.location.href = `/${res.data.type}`;
+          } else if (res.data.err) {
+            setIsLoading(false);
+            console.log(res.data);
+          }
         });
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -54,11 +64,8 @@ const LoginForm = () => {
         <Formik
           initialValues={{ name: "", email: "" }}
           validationSchema={SignupSchema}
-          onSubmit={(values: any, actions: any) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+          onSubmit={() => {
+            console.log("info submitted");
           }}
         >
           {(props: any) => (
@@ -66,7 +73,7 @@ const LoginForm = () => {
               <Field name="email">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.email && form.touched.email}
+                  //    isInvalid={form.errors.email && form.touched.email}
                   >
                     <FormLabel htmlFor="email">Your email adress</FormLabel>
                     <Input
@@ -78,14 +85,14 @@ const LoginForm = () => {
                       }}
                       value={email}
                     />
-                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                    {/* { <FormErrorMessage>{form.errors.email}</FormErrorMessage>} */}
                   </FormControl>
                 )}
               </Field>
               <Field name="password">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.password && form.touched.password}
+                  // isInvalid={form.errors.password && form.touched.password}
                   >
                     <FormLabel htmlFor="password">Your password</FormLabel>
                     <Input
@@ -98,7 +105,7 @@ const LoginForm = () => {
                       }}
                       value={password}
                     />
-                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                    {/* <FormErrorMessage>{form.errors.password}</FormErrorMessage> */}
                   </FormControl>
                 )}
               </Field>
@@ -107,6 +114,7 @@ const LoginForm = () => {
                 colorScheme="blue"
                 type="submit"
                 onClick={handleLogin}
+                isLoading={isLoading}
               >
                 Login
               </Button>

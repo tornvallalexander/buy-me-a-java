@@ -30,8 +30,10 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = () => {
+    setIsLoading(true);
     if (email && password && userType && userName) {
       axios
         .post("http://localhost:5000/api/v1/signup", {
@@ -41,15 +43,19 @@ const SignUpForm = () => {
           userType: userType,
         })
         .then((res) => {
+          setIsLoading(false);
           console.log(res.data);
 
           setCookies("TOKEN", res.data.token);
-          window.location.href = "/";
+          window.location.href = `/${res.data.type}`;
         })
         .catch((err) => {
+          setIsLoading(false);
           alert("error !!!");
           console.log(err);
         });
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -67,11 +73,8 @@ const SignUpForm = () => {
         <Formik
           initialValues={{ name: "", email: "" }}
           validationSchema={SignupSchema}
-          onSubmit={(values: any, actions: any) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+          onSubmit={() => {
+            console.log("info submitted");
           }}
         >
           {(props: any) => (
@@ -79,7 +82,7 @@ const SignUpForm = () => {
               <Field name="email">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.email && form.touched.email}
+                  // isInvalid={form.errors.email && form.touched.email}
                   >
                     <FormLabel htmlFor="email">Your email adress</FormLabel>
                     <Input
@@ -91,7 +94,7 @@ const SignUpForm = () => {
                       }}
                       value={email}
                     />
-                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                    {/* <FormErrorMessage>{form.errors.email}</FormErrorMessage> */}
                   </FormControl>
                 )}
               </Field>
@@ -100,7 +103,7 @@ const SignUpForm = () => {
               <Field name="password">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.password && form.touched.password}
+                  // isInvalid={form.errors.password && form.touched.password}
                   >
                     <FormLabel htmlFor="password">Your password</FormLabel>
                     <Input
@@ -113,7 +116,7 @@ const SignUpForm = () => {
                       }}
                       value={password}
                     />
-                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                    {/* <FormErrorMessage>{form.errors.password}</FormErrorMessage> */}
                   </FormControl>
                 )}
               </Field>
@@ -122,7 +125,7 @@ const SignUpForm = () => {
               <Field name="userName">
                 {({ field, form }: any) => (
                   <FormControl
-                    isInvalid={form.errors.userName && form.touched.userName}
+                  // isInvalid={form.errors.userName && form.touched.userName}
                   >
                     <FormLabel htmlFor="userName">Your user name</FormLabel>
                     <Input
@@ -154,7 +157,7 @@ const SignUpForm = () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      setUserType("supporter");
+                      setUserType("donator");
                     }}
                   >
                     Supporter
@@ -166,7 +169,7 @@ const SignUpForm = () => {
               <Button
                 mt={4}
                 colorScheme="blue"
-                isLoading={props.isSubmitting}
+                isLoading={isLoading}
                 type="submit"
                 onClick={handleRegister}
               >

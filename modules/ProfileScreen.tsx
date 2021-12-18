@@ -7,18 +7,27 @@ import {
   useMediaQuery,
   Button,
 } from "@chakra-ui/react";
-import { setCookies } from "cookies-next";
-import link from "next/link";
-import React from "react";
+import { getCookie, setCookies } from "cookies-next";
+import React, { useEffect, useState } from "react";
 import Spacer from "../components/Spacer";
+import jwt from "jsonwebtoken";
 
 const ProfileScreen = () => {
   const [isMobile] = useMediaQuery("(max-width: 1000px)");
+  const [user, setUser] = useState<any>();
 
   const logout = () => {
     setCookies("TOKEN", "");
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    const userToken = getCookie("TOKEN");
+
+    if (userToken) {
+      setUser(jwt.decode(userToken.toString()));
+    }
+  }, []);
 
   return (
     <Box
@@ -79,22 +88,24 @@ const ProfileScreen = () => {
             </chakra.p>
             <Spacer height={2} />
 
-            <Flex flexDirection="column">
-              <chakra.p
-                color={useColorModeValue("gray.700", "gray.400")}
-                fontWeight="bold"
-              >
-                Supporters
-              </chakra.p>
+            {user && user.userType === "creator" && (
+              <Flex flexDirection="column">
+                <chakra.p
+                  color={useColorModeValue("gray.700", "gray.400")}
+                  fontWeight="bold"
+                >
+                  Supporters
+                </chakra.p>
 
-              <chakra.p
-                pt={3}
-                color={useColorModeValue("gray.700", "gray.400")}
-                textAlign="center"
-              >
-                0
-              </chakra.p>
-            </Flex>
+                <chakra.p
+                  pt={3}
+                  color={useColorModeValue("gray.700", "gray.400")}
+                  textAlign="center"
+                >
+                  0
+                </chakra.p>
+              </Flex>
+            )}
           </Box>
           <Spacer height={1} />
           <Button backgroundColor="#222" color="white" onClick={logout}>

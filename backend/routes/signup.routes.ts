@@ -1,12 +1,7 @@
-//import * as express from "express";
 import User from "../model/User";
 import jwt from "jsonwebtoken";
-const bcrypt = require("bcrypt");
-require("dotenv").config({
-  path: `../.env.development`,
-});
-//const router = express.Router();
-//router.route("/").post
+import bcrypt from "bcrypt";
+import { JWT_KEY } from "../constants";
 
 const signup = async (req: any, res: any) => {
   const { email, password, userName, userType } = req.body;
@@ -24,18 +19,17 @@ const signup = async (req: any, res: any) => {
     userType,
   });
 
-  const salt = await bcrypt.genSalt(10);
-  newUser.password = await bcrypt.hash(newUser.password, salt);
-  const JWT_KEY = "BUY_ME_A_JAVA_KEY";
+  bcrypt.genSalt(4, (err, salt) => {
+    bcrypt.hash(password, salt, async (err, hash) => {
+      newUser.password = await hash;
 
-  newUser.save().then((_) => {
-    const token = jwt.sign(newUser.toJSON(), JWT_KEY);
-    res.status(201);
+      newUser.save().then((_) => {
+        const token = jwt.sign(newUser.toJSON(), JWT_KEY);
+        res.status(201);
 
-    res.json({ token: token });
-    /*catch {
-      res.status(400).send("error signing up !!");
-    }*/
+        res.json({ token: token, type: newUser.userType });
+      });
+    });
   });
 };
 
