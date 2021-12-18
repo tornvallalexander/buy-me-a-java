@@ -1,22 +1,24 @@
-//import * as express from "express";
-const bcrypt = require("bcrypt");
 import jwt from "jsonwebtoken";
 import User from "../model/User";
-//const router = express.Router();
+import bcrypt from "bcrypt";
+import { JWT_KEY } from "../constants";
 
 const login = (req: any, res: any) => {
-  const password = req.body.password;
-  const email = req.body.email;
+  const { email, password } = req.body;
 
   User.find({ email: email }, "", (err: any, usersList: any) => {
-    // res.json(usersList);
-    if (usersList !== null) {
-      if (bcrypt.compare(password, usersList[0].password)) {
-        const token = jwt.sign(usersList[0].toJSON(), "BUY_ME_A_JAVA");
-        res.status(200).json({ token: token });
-      } else {
-        res.status(400).json({ text: "there was an error", err: err });
-      }
+    if (usersList) {
+      const token = jwt.sign(usersList[0].toJSON(), JWT_KEY);
+
+      bcrypt.compare(password, usersList[0].password, (err, result) => {
+        if (result) {
+          res.json({ token: token, type: usersList[0].userType });
+        } else {
+          res.json({
+            err: "Incorrect password, try again ",
+          });
+        }
+      });
     }
   });
 };
