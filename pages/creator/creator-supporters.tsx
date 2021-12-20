@@ -1,10 +1,10 @@
 import * as React from "react";
-import SupportersScreen from "../modules/Creator/SupportersSceen";
-import Layout from "../components/Layout";
+import SupportersScreen from "../../modules/Creator/SupportersSceen";
+import Layout from "../../components/Layout";
 
 const CreatorSupporters = () => {
   return (
-    <Layout userType="creator">
+    <Layout>
       <SupportersScreen />
     </Layout>
   );

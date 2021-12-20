@@ -4,7 +4,7 @@ import LoginModule from "../modules/Login";
 
 const LoginPage = () => {
   return (
-    <Layout userType="none">
+    <Layout>
       <LoginModule />
     </Layout>
   );

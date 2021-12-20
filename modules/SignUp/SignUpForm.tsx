@@ -30,17 +30,19 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [bio, setBio] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = () => {
     setIsLoading(true);
-    if (email && password && userType && userName) {
+    if (email && password && userType && userName && bio) {
       axios
         .post("http://localhost:5000/api/v1/signup", {
           password: password,
           email: email,
           userName: userName,
           userType: userType,
+          bio: bio,
         })
         .then((res) => {
           setIsLoading(false);
@@ -136,6 +138,27 @@ const SignUpForm = () => {
                         setUserName(e.target.value);
                       }}
                       value={userName}
+                    />
+                    {/*<FormErrorMessage>{form.errors.userName}</FormErrorMessage>*/}
+                  </FormControl>
+                )}
+              </Field>
+              <Spacer height={1} />
+
+              <Field name="bio">
+                {({ field, form }: any) => (
+                  <FormControl
+                  // isInvalid={form.errors.userName && form.touched.userName}
+                  >
+                    <FormLabel htmlFor="bio">Your bio</FormLabel>
+                    <Input
+                      {...field}
+                      id="bio"
+                      placeholder="Bio"
+                      onChange={(e) => {
+                        setBio(e.target.value);
+                      }}
+                      value={bio}
                     />
                     {/*<FormErrorMessage>{form.errors.userName}</FormErrorMessage>*/}
                   </FormControl>

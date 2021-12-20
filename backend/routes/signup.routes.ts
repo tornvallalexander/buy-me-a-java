@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { JWT_KEY } from "../constants";
 
 const signup = async (req: any, res: any) => {
-  const { email, password, userName, userType } = req.body;
+  const { email, password, userName, userType, bio } = req.body;
 
   if (!(email && password)) {
     res.status(400);
@@ -17,6 +17,7 @@ const signup = async (req: any, res: any) => {
     password,
     userName,
     userType,
+    bio,
   });
 
   bcrypt.genSalt(4, (err, salt) => {

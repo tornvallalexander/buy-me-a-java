@@ -5,7 +5,7 @@ import IndexModule from "../modules/Index";
 
 const Index: NextPage = () => {
   return (
-    <Layout userType="none">
+    <Layout>
       <IndexModule />
     </Layout>
   );

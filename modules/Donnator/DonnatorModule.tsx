@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 
 const SupporterModule = () => {
   return (
-    <Layout userType="donator">
+    <Layout>
       <ProfileScreen />
     </Layout>
   );

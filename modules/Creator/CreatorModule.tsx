@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 
 const CreatorModule = () => {
   return (
-    <Layout userType="creator">
+    <Layout>
       <ProfileScreen />
     </Layout>
   );

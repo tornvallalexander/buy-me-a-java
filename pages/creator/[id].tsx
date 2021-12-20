@@ -1,5 +1,5 @@
 import React from "react";
-import CreatorModule from "../modules/Creator/CreatorModule";
+import CreatorModule from "../../modules/Creator/CreatorModule";
 
 const Creator = () => {
   return (
