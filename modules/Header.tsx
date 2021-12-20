@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -15,6 +15,8 @@ import * as ROUTES from "../constants/routes";
 import { AiOutlineMenu } from "react-icons/ai";
 import Image from "next/image";
 import Logo from "../assets/logo.png";
+import { getCookie } from "cookies-next";
+import jwt from "jsonwebtoken";
 
 interface NavLinkProps {
   children: React.ReactNode;
@@ -26,10 +28,6 @@ interface NavLinkItemProps {
   text: string;
   children?: React.ReactNode;
   [rest: string]: any;
-}
-
-interface HeaderProps {
-  type: string;
 }
 
 const NavLinkItem = ({ children, href, text, ...rest }: NavLinkItemProps) => {
@@ -51,8 +49,19 @@ const NavLink = ({ children, href }: NavLinkProps) => {
   );
 };
 
-const Header: React.FC<HeaderProps> = ({ type }) => {
+const Header = () => {
   const mobileNav = useDisclosure();
+  const [userID, setUserID] = useState(getCookie("TOKEN"));
+  const [type, setType] = useState("none");
+
+  useEffect(() => {
+    if (userID) {
+      const user: any = jwt.decode(userID.toString());
+      setType(user.userType);
+    } else {
+      setType("none");
+    }
+  }, []);
 
   const displayNavItems = (isMobile: boolean) => {
     switch (type) {

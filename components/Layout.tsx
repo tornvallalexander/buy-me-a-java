@@ -3,13 +3,12 @@ import Header from "../modules/Header";
 
 interface LayoutProps {
   children: React.ReactNode;
-  userType: string;
 }
 
-const Layout = ({ children, userType }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Header type={userType} />
+      <Header />
       {children}
     </>
   );

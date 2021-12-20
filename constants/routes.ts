@@ -9,10 +9,10 @@ if (userToken) {
   console.log(jwt.decode(userToken.toString()));
   userID = jwt.decode(userToken.toString());
 
-  USER = `/${userID.userType}`;
+  USER = `/${userID.userType}/${userID._id}`;
 }
 
-export const HOME = userToken ? USER : "/";
+export const HOME = "/";
 
 //auth
 export const LOGIN = userToken ? USER : "/login";
@@ -20,8 +20,8 @@ export const REGISTER = userToken ? USER : "/register";
 
 //creator screens
 export const CREATOR = USER;
-export const CREATOR_SUPPORTERS = "/creator-supporters";
+export const CREATOR_SUPPORTERS = "/creator/creator-supporters";
 
 //supporter screens
 export const DONATOR = USER;
-export const DONATOR_CREATORS = "/donator-creators";
+export const DONATOR_CREATORS = "/donator/donator-creators";

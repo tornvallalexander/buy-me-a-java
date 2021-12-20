@@ -6,20 +6,23 @@ import {
   Input,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Spacer from "../../components/Spacer";
 
 interface CreatorsListItems {
-  name: string;
-  description: string;
+  userName: string;
+  bio: string;
+  userType: boolean;
+  email: string;
+  password: string;
 }
 
 const DonationScreen = () => {
   const [isMobile] = useMediaQuery("(max-width: 1000px)");
-  const [creatorsList, setCreatorsList] = useState<Array<CreatorsListItems>>([
-    { name: "Hakim", description: "i am a very good coder!" },
-    { name: "Alex", description: "i am a very good programmer!" },
-  ]);
+  const [creatorsList, setCreatorsList] = useState<Array<CreatorsListItems>>(
+    []
+  );
   const [Creators, setCreators] =
     useState<Array<CreatorsListItems>>(creatorsList);
 
@@ -27,7 +30,7 @@ const DonationScreen = () => {
     if (term) {
       setCreators(
         creatorsList.filter((creator) =>
-          creator.name.toUpperCase().includes(term.toUpperCase())
+          creator.userName.toUpperCase().includes(term.toUpperCase())
         )
       );
     } else {
@@ -35,63 +38,76 @@ const DonationScreen = () => {
     }
   };
 
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/v1/getCreators").then((res) => {
+      console.log(res.data);
+
+      setCreators(res.data.users);
+      setCreatorsList(res.data.users);
+    });
+  }, []);
+
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Spacer height={5} />
+    <>
+      {creatorsList.length && (
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Spacer height={5} />
 
-      <Input
-        width={isMobile ? "98%" : "43%"}
-        borderColor="gray"
-        border="2px solid gray"
-        placeholder="Search something..."
-        onChange={(e) => {
-          search(e.target.value);
-        }}
-      />
-      <Spacer height={4} />
+          <Input
+            width={isMobile ? "98%" : "43%"}
+            borderColor="#a8a8a8"
+            border="2px solid gray"
+            placeholder="Search something..."
+            onChange={(e) => {
+              search(e.target.value);
+            }}
+          />
+          <Spacer height={4} />
 
-      <Flex
-        flexDirection="column"
-        justifyContent="center"
-        width={isMobile ? "95%" : "40%"}
-      >
-        {Creators.map((creator) => {
-          return (
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-              backgroundColor="white"
-              mb={5}
-              padding={3}
-              borderRadius="10px"
-            >
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-              >
-                <chakra.h1 fontSize={20} fontWeight="bold">
-                  {creator.name}
-                </chakra.h1>
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            width={isMobile ? "95%" : "40%"}
+          >
+            {Creators.map((creator) => {
+              return (
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  backgroundColor="white"
+                  mb={5}
+                  padding={3}
+                  borderRadius="10px"
+                >
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <chakra.h1 fontSize={20} fontWeight="bold">
+                      {creator.userName}
+                    </chakra.h1>
 
-                <chakra.h1>{creator.description}</chakra.h1>
-              </Box>
+                    <chakra.h1>{creator.bio}</chakra.h1>
+                  </Box>
 
-              <Button backgroundColor="#1D1D1D" color="white">
-                Donate
-              </Button>
-            </Box>
-          );
-        })}
-      </Flex>
-    </Box>
+                  <Button backgroundColor="#1D1D1D" color="white">
+                    Donate
+                  </Button>
+                </Box>
+              );
+            })}
+          </Flex>
+        </Box>
+      )}
+    </>
   );
 };
 

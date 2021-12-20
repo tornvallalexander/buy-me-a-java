@@ -1,5 +1,5 @@
 import React from "react";
-import DonatorModule from "../modules/Donnator/DonnatorModule";
+import DonatorModule from "../../modules/Donnator/DonnatorModule";
 
 const Donator = () => {
   return (
