@@ -21,7 +21,8 @@ export const UserSchema = new mongoose.Schema({
     validate: [validateEmail, "Fill out a valid email address"],
   },
   password: { type: String, min: 4, max: 200, required: true },
-  userName: { type: String, default: "" },
+  username: { type: String, default: "" },
+  stripe_account_id: { type: String, default: "" },
 });
 
 const User = mongoose.model<IUser>("User", UserSchema);

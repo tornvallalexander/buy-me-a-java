@@ -10,17 +10,9 @@ dotenv.config({
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 const router = express.Router()
 
-router.route("/create-account-hosted").post(async (_req: any, res: any) => {
+router.route("/").post(async (_req: any, res: any) => {
   try {
-    const account = await stripe.accounts.create({
-      country: 'SE',
-      type: 'express',
-      capabilities: {
-        card_payments: {requested: true},
-        transfers: {requested: true},
-      },
-      business_type: 'individual',
-    })
+    const account = await stripe.accounts.create({ type: "standard" })
 
     const accountLink = await stripe.accountLinks.create({
       account: account.id,

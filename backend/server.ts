@@ -4,6 +4,7 @@ import cors from "cors";
 import signup from "./routes/login.routes";
 import connect from "./routes/connect.routes"
 import user from "./routes/user.routes";
+import checkout from "./routes/checkout.routes"
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/api/v1/auth/signup", signup);
 app.use("/api/v1/connect", connect)
 app.use("/api/v1/user", user);
+app.use("/api/v1/checkout", checkout)
 
 // for all routes that don't exist (yet)
 app.use("*", (_, res) => res.status(404).json({ error: "Not found" }));
