@@ -39,10 +39,10 @@ const LoginForm = () => {
             console.log(res.data);
 
             setCookies("TOKEN", res.data.token);
-            window.location.href = `/${res.data.type}`;
-          } else if (res.data.err) {
+            window.location.href = `/${res.data.type}/${res.data.name}`;
+          } else if (res.data.error) {
             setIsLoading(false);
-            console.log(res.data);
+            alert(res.data.error);
           }
         });
     } else {

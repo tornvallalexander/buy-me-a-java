@@ -9,10 +9,10 @@ if (userToken) {
   console.log(jwt.decode(userToken.toString()));
   userID = jwt.decode(userToken.toString());
 
-  USER = `/${userID.userType}/${userID._id}`;
+  USER = `/${userID.userType}/${userID.userName}`;
 }
 
-export const HOME = "/";
+export const HOME = userToken ? USER : "/";
 
 //auth
 export const LOGIN = userToken ? USER : "/login";

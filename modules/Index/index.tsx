@@ -10,13 +10,23 @@ import {
   SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import { HOME } from "../../constants/routes";
+import { getCookie } from "cookies-next";
 
 interface FeatureProps {
   children: React.ReactNode;
 }
 
 const IndexModule: NextPage = () => {
+  const [userToken, setUserToken] = useState(getCookie("TOKEN"));
+
+  useEffect(() => {
+    // if (userToken) {
+    //   window.location.href = HOME;
+    // }
+  }, []);
+
   const Feature = ({ children }: FeatureProps) => (
     <Flex alignItems="center" color="inherit">
       <Icon
