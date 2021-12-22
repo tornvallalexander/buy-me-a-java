@@ -9,11 +9,11 @@ import {
 import { getCookie, setCookies } from "cookies-next";
 import React, { useEffect, useState, useRef } from "react";
 import Spacer from "../components/Spacer";
-import jwt from "jsonwebtoken";
 import ProfilePicBlank from "../assets/profile-picture-blank.png";
 import Image from "next/image";
 import axios from "axios";
-import Link from "next/link";
+import jwt from "jsonwebtoken";
+import { stubFalse } from "lodash";
 
 const defaultUserData = {
   userName: "NAME",
@@ -24,16 +24,18 @@ const defaultUserData = {
 const ProfileScreen = () => {
   const [isMobile] = useMediaQuery("(max-width: 1000px)");
   const [user, setUser] = useState<any>(defaultUserData);
+  const [userToken, setUserToken] = useState<any>(getCookie("TOKEN"));
+  const [currentUser, setIsCurrentUser] = useState(false);
 
   const logout = () => {
     setCookies("TOKEN", "");
     window.location.href = "/";
   };
 
-  const getUser = (id: string, type: string) => {
+  const getUser = (name: string, type: string) => {
     axios
       .post("http://localhost:5000/api/v1/getUser", {
-        userID: id,
+        userName: name,
         userType: type,
       })
       .then((res) => {
@@ -41,8 +43,9 @@ const ProfileScreen = () => {
 
         if (res.data.user) {
           setUser(res.data.user);
-        } else if (res.data.err) {
+        } else if (res.data.error) {
           setUser(null);
+          alert(res.data.error);
           window.location.href = "/";
         }
       });
@@ -52,13 +55,19 @@ const ProfileScreen = () => {
     const id = window.location.pathname;
 
     if (id.includes("donator")) {
-      const userID = window.location.pathname.replace("/donator/", "");
+      const user: any = jwt.decode(userToken);
+      const userName = window.location.pathname.replace("/donator/", "");
 
-      getUser(userID, "donator");
+      if (userName === user.userName) setIsCurrentUser(true);
+
+      getUser(userName, "donator");
     } else {
-      const userID = window.location.pathname.replace("/creator/", "");
+      const user: any = jwt.decode(userToken);
+      const userName = window.location.pathname.replace("/creator/", "");
 
-      getUser(userID, "creator");
+      if (userName === user.userName) setIsCurrentUser(true);
+
+      getUser(userName, "creator");
     }
   }, []);
 
@@ -141,10 +150,15 @@ const ProfileScreen = () => {
                   </Flex>
                 )}
               </Box>
-              <Spacer height={1} />
-              <Button backgroundColor="#222" color="white" onClick={logout}>
-                Logout
-              </Button>
+
+              {userToken && currentUser && (
+                <>
+                  <Spacer height={1} />
+                  <Button backgroundColor="#222" color="white" onClick={logout}>
+                    Logout
+                  </Button>
+                </>
+              )}
 
               <Spacer height={1} />
             </Box>

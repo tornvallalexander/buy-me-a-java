@@ -1,19 +1,19 @@
 import User from "../model/User";
 
-const getUser = (req: any, res: any) => {
-  const { userID, userType } = req.body;
+const getUser = async (req: any, res: any) => {
+  const { userName, userType } = req.body;
 
-  const users = User.find({ _id: userID }, "", (err: any, usersList: any) => {
-    if (usersList) {
-      if (usersList[0].userType === userType) {
-        res.json({ user: usersList[0] });
-      } else {
-        res.json({ err: "user not found", msg: err });
-      }
+  const users = await User.find({ userName: userName });
+
+  if (users.length) {
+    if (users[0].userType === userType) {
+      res.json({ user: users[0] });
     } else {
-      res.json({ err: "user not found", msg: err });
+      res.json({ error: "user not found", name: userName });
     }
-  });
+  } else {
+    res.json({ error: "user not found", name: userName });
+  }
 };
 
 export default getUser;

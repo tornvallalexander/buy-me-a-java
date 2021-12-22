@@ -6,9 +6,17 @@ import { JWT_KEY } from "../constants";
 const signup = async (req: any, res: any) => {
   const { email, password, userName, userType, bio } = req.body;
 
+  const users: any = await User.find({ userName: userName });
+
   if (!(email && password)) {
     res.status(400);
     res.send({ error: "No email or password provided" });
+    return;
+  }
+
+  if (users[0]) {
+    res.status(400);
+    res.send({ error: "Username already been token" });
     return;
   }
 
@@ -28,7 +36,11 @@ const signup = async (req: any, res: any) => {
         const token = jwt.sign(newUser.toJSON(), JWT_KEY);
         res.status(201);
 
-        res.json({ token: token, type: newUser.userType });
+        res.json({
+          token: token,
+          type: newUser.userType,
+          name: newUser.userName,
+        });
       });
     });
   });

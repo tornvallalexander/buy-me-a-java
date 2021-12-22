@@ -46,15 +46,15 @@ const SignUpForm = () => {
         })
         .then((res) => {
           setIsLoading(false);
-          console.log(res.data);
 
-          setCookies("TOKEN", res.data.token);
-          window.location.href = `/${res.data.type}`;
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          alert("error !!!");
-          console.log(err);
+          if (res.data.token) {
+            console.log(res.data);
+
+            setCookies("TOKEN", res.data.token);
+            window.location.href = `/${res.data.type}/${res.data.name}`;
+          } else if (res.data.error) {
+            alert(res.data.error);
+          }
         });
     } else {
       setIsLoading(false);
